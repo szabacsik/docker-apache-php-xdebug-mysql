@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+    mysql:
+      hostname: db
+      container_name: db
+      ports:
+        - '3306:3306'
+      environment:
+        - MYSQL_ROOT_PASSWORD=PASSWORD
+        - MYSQL_ROOT_HOST=%
+        - MYSQL_DATABASE=DATABASE
+        - TZ=Europe/Budapest
+      image: 'mysql/mysql-server:latest'
+      volumes:
+        - ./db/my.cnf:/etc/my.cnf:ro
+        - ./db/mysql:/var/lib/mysql
+        - ./db/mysql-files:/var/lib/mysql-files
+      user: ${UID_GID}
+    php:
+      hostname: php
+      container_name: php
+      build: ./php
+      volumes:
+        - ./php/my.ini:/usr/local/etc/php/conf.d/my.ini:ro
+        - ./php/000-default.conf:/etc/apache2/sites-available/000-default.conf:ro
+        - ../:/var/www/html
+      ports:
+        - "8080:80"
+      user: ${UID_GID}
+      dns:
+        - 8.8.8.8
+        - 8.8.4.4
+        - 9.9.9.9
+        - 1.1.1.1
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
