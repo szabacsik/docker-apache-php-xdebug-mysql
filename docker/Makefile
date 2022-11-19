@@ -9,3 +9,5 @@ down:
 	UID_GID="$(UID):$(GID)" docker compose down --remove-orphans
 prune:
 	UID_GID="$(UID):$(GID)" docker system prune --volumes -a --force
+bash:
+	docker exec -it -u0 php bash
