@@ -1,2 +1,2 @@
-# docker-apache-php-xdebug-mysql-latest
-Docker Apache PHP XDebug MySQL latest
+# docker-apache-php-xdebug-mysql
+Docker Apache PHP XDebug MySQL
